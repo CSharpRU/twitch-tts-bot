@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+    <PropertyGroup>
+        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+        <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+        <ProjectGuid>{7453AF0F-3FE3-4BB9-99E3-8AB4C0EB6CB4}</ProjectGuid>
+        <OutputType>WinExe</OutputType>
+        <RootNamespace>RDPG_Twitch_TTS_Bot</RootNamespace>
+        <AssemblyName>RDPG Twitch TTS Bot</AssemblyName>
+        <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+        <FileAlignment>512</FileAlignment>
+        <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+        <Deterministic>true</Deterministic>
+        <LangVersion>8</LangVersion>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+      <DebugType>pdbonly</DebugType>
+      <Optimize>true</Optimize>
+      <DefineConstants>TRACE</DefineConstants>
+      <ErrorReport>prompt</ErrorReport>
+      <WarningLevel>4</WarningLevel>
+      <OutputPath>bin\x86\Release\</OutputPath>
+      <PlatformTarget>x86</PlatformTarget>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+      <DebugSymbols>true</DebugSymbols>
+      <DebugType>full</DebugType>
+      <Optimize>false</Optimize>
+      <DefineConstants>DEBUG;TRACE</DefineConstants>
+      <ErrorReport>prompt</ErrorReport>
+      <WarningLevel>4</WarningLevel>
+      <OutputPath>bin\x86\Debug\</OutputPath>
+      <PlatformTarget>x86</PlatformTarget>
+    </PropertyGroup>
+    <ItemGroup>
+        <Reference Include="mscorlib" />
+        <Reference Include="System" />
+        <Reference Include="System.ComponentModel.Composition" />
+        <Reference Include="System.Configuration" />
+        <Reference Include="System.Core" />
+        <Reference Include="System.IO.Compression" />
+        <Reference Include="System.Numerics" />
+        <Reference Include="System.Runtime.Serialization" />
+        <Reference Include="System.ServiceModel" />
+        <Reference Include="System.Speech" />
+        <Reference Include="System.Transactions" />
+        <Reference Include="System.Web" />
+        <Reference Include="System.Xml.Linq" />
+        <Reference Include="System.Data.DataSetExtensions" />
+        <Reference Include="Microsoft.CSharp" />
+        <Reference Include="System.Data" />
+        <Reference Include="System.Deployment" />
+        <Reference Include="System.Drawing" />
+        <Reference Include="System.Windows.Forms" />
+        <Reference Include="System.Xml" />
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Include="AuthenticateForm.cs">
+          <SubType>Form</SubType>
+        </Compile>
+        <Compile Include="AuthenticateForm.Designer.cs">
+          <DependentUpon>AuthenticateForm.cs</DependentUpon>
+        </Compile>
+        <Compile Include="Controllers\AuthenticationController.cs" />
+        <Compile Include="MainForm.cs">
+            <SubType>Form</SubType>
+        </Compile>
+        <Compile Include="MainForm.Designer.cs">
+            <DependentUpon>MainForm.cs</DependentUpon>
+        </Compile>
+        <Compile Include="Program.cs" />
+        <Compile Include="Properties\AssemblyInfo.cs" />
+        <Compile Include="Services\ConfigurationService.cs" />
+        <Compile Include="Services\ISpeechSynthesizerService.cs" />
+        <Compile Include="Services\ITwitchService.cs" />
+        <Compile Include="Services\TwitchService.cs" />
+        <Compile Include="Services\WindowsSpeechSynthesizerService.cs" />
+        <EmbeddedResource Include="AuthenticateForm.resx">
+          <DependentUpon>AuthenticateForm.cs</DependentUpon>
+        </EmbeddedResource>
+        <EmbeddedResource Include="MainForm.resx">
+          <DependentUpon>MainForm.cs</DependentUpon>
+        </EmbeddedResource>
+        <EmbeddedResource Include="Properties\Resources.resx">
+            <Generator>ResXFileCodeGenerator</Generator>
+            <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+            <SubType>Designer</SubType>
+        </EmbeddedResource>
+        <Compile Include="Properties\Resources.Designer.cs">
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Resources.resx</DependentUpon>
+        </Compile>
+        <None Include="NLog.config">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Include="Properties\Settings.settings">
+            <Generator>SettingsSingleFileGenerator</Generator>
+            <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+        </None>
+        <Compile Include="Properties\Settings.Designer.cs">
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Settings.settings</DependentUpon>
+            <DesignTimeSharedInput>True</DesignTimeSharedInput>
+        </Compile>
+    </ItemGroup>
+    <ItemGroup>
+        <None Include="App.config" />
+    </ItemGroup>
+    <ItemGroup>
+      <PackageReference Include="cef.redist.x86" Version="85.3.13" />
+      <PackageReference Include="CefSharp.WinForms" Version="85.3.130" />
+      <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Hosting.Server.Abstractions" Version="2.2.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.2.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.0" />
+      <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="5.0.0" />
+      <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+      <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
+      <PackageReference Include="Microsoft.Extensions.FileProviders.Abstractions" Version="5.0.0" />
+      <PackageReference Include="Microsoft.Extensions.FileProviders.Physical" Version="5.0.0" />
+      <PackageReference Include="Microsoft.Extensions.FileSystemGlobbing" Version="5.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="5.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Primitives" Version="5.0.0" />
+      <PackageReference Include="Microsoft.Net.Http.Headers" Version="2.2.8" />
+      <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.2.0" />
+      <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+      <PackageReference Include="NLog" Version="4.7.5" />
+      <PackageReference Include="System.Buffers" Version="4.5.1" />
+      <PackageReference Include="System.IO" Version="4.3.0" />
+      <PackageReference Include="System.IO.Pipelines" Version="5.0.0" />
+      <PackageReference Include="System.Memory" Version="4.5.4" />
+      <PackageReference Include="System.Net.Http" Version="4.3.4" />
+      <PackageReference Include="System.Numerics.Vectors" Version="4.5.0" />
+      <PackageReference Include="System.Runtime" Version="4.3.1" />
+      <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="5.0.0" />
+      <PackageReference Include="System.Security.Cryptography.Algorithms" Version="4.3.1" />
+      <PackageReference Include="System.Security.Cryptography.Encoding" Version="4.3.0" />
+      <PackageReference Include="System.Security.Cryptography.Primitives" Version="4.3.0" />
+      <PackageReference Include="System.Security.Cryptography.X509Certificates" Version="4.3.2" />
+      <PackageReference Include="System.Text.Encodings.Web" Version="5.0.0" />
+      <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
+      <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+      <PackageReference Include="TwitchLib" Version="3.1.1" />
+      <PackageReference Include="TwitchLib.Api" Version="3.1.4-CI-20201109-24" />
+      <PackageReference Include="TwitchLib.Api.Core" Version="3.1.4-CI-20201109-24" />
+      <PackageReference Include="TwitchLib.Api.Core.Enums" Version="3.1.3-CI-20201109-24" />
+      <PackageReference Include="TwitchLib.Api.Core.Interfaces" Version="3.1.3-CI-20201109-24" />
+      <PackageReference Include="TwitchLib.Api.Core.Models" Version="3.1.4-CI-20201109-24" />
+      <PackageReference Include="TwitchLib.Api.Helix" Version="3.1.3" />
+      <PackageReference Include="TwitchLib.Api.Helix.Models" Version="3.1.4-CI-20201109-24" />
+      <PackageReference Include="TwitchLib.Api.V5" Version="3.1.3-CI-20201109-24" />
+      <PackageReference Include="TwitchLib.Api.V5.Models" Version="3.1.3-CI-20201109-24" />
+      <PackageReference Include="TwitchLib.Client" Version="3.1.6-CI-20201008-9" />
+      <PackageReference Include="TwitchLib.Client.Enums" Version="3.1.5-CI-20201008-9" />
+      <PackageReference Include="TwitchLib.Client.Models" Version="3.1.6-CI-20201008-9" />
+      <PackageReference Include="TwitchLib.Communication" Version="1.0.3" />
+      <PackageReference Include="TwitchLib.PubSub" Version="3.1.5-CI-20201109-10" />
+    </ItemGroup>
+    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

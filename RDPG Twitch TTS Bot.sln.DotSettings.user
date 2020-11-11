@@ -1,0 +1,11 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.dll" /&gt;&#xD;
+  &lt;PhysicalFolder Path="C:\Users\cshar\.nuget\packages\eo.webbrowser.winform\20.2.90" Loaded="True" /&gt;&#xD;
+  &lt;PhysicalFolder Path="C:\Users\cshar\.nuget\packages\eo.webbrowser\20.2.90" Loaded="True" /&gt;&#xD;
+&lt;/AssemblyExplorer&gt;</s:String>
+	<s:String x:Key="/Default/Environment/Hierarchy/Build/BuildTool/CustomBuildToolPath/@EntryValue">C:\Program Files\JetBrains\JetBrains Rider 2020.2.4\tools\MSBuild\Current\Bin\MSBuild.exe</s:String>
+	
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=RDPG_0020Twitch_0020TTS_0020Bot_002FAuthenticateForm/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=RDPG_0020Twitch_0020TTS_0020Bot_002FProperties_002FResources/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/Initialized/@EntryValue">True</s:Boolean></wpf:ResourceDictionary>
