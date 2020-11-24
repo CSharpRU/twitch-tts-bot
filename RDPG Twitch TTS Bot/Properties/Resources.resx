@@ -129,4 +129,7 @@
   <data name="MainForm_MainForm_Error" xml:space="preserve">
     <value>Error</value>
   </data>
+  <data name="MainForm_ShowAuthenticateForm_Authentication_is_failed__please_restart_application_and_try_again_" xml:space="preserve">
+    <value>Authentication is failed, please restart application and try again.</value>
+  </data>
 </root>

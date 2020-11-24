@@ -89,6 +89,16 @@ namespace RDPG_Twitch_TTS_Bot.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Authentication is failed, please restart application and try again..
+        /// </summary>
+        internal static string MainForm_ShowAuthenticateForm_Authentication_is_failed__please_restart_application_and_try_again_ {
+            get {
+                return ResourceManager.GetString("MainForm_ShowAuthenticateForm_Authentication_is_failed__please_restart_applicatio" +
+                        "n_and_try_again_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure?.
         /// </summary>
         internal static string MainForm_skipAllButton_Click_Are_you_sure_ {

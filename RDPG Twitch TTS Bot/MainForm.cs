@@ -91,10 +91,20 @@ namespace RDPG_Twitch_TTS_Bot
         {
             var result = new AuthenticateForm(_authenticationController, _twitchService).ShowDialog(this);
 
-            if (result != DialogResult.OK)
+            if (result == DialogResult.OK)
             {
-                Environment.Exit(1);
+                return;
             }
+
+            MessageBox.Show(
+                Resources
+                    .MainForm_ShowAuthenticateForm_Authentication_is_failed__please_restart_application_and_try_again_,
+                Resources.MainForm_MainForm_Error,
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error
+            );
+
+            Environment.Exit(1);
         }
 
         private void volumeTrackBar_Scroll(object sender, EventArgs e)
