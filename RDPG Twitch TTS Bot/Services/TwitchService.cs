@@ -4,6 +4,9 @@ using RDPG_Twitch_TTS_Bot.Properties;
 using TwitchLib.Api;
 using TwitchLib.Api.Core.Exceptions;
 using TwitchLib.Api.Interfaces;
+using TwitchLib.Client;
+using TwitchLib.Client.Interfaces;
+using TwitchLib.Client.Models;
 using TwitchLib.PubSub;
 using TwitchLib.PubSub.Interfaces;
 
@@ -13,6 +16,8 @@ namespace RDPG_Twitch_TTS_Bot.Services
     {
         public event ITwitchService.RedeemReceivedHandler RedeemReceived;
 
+        public event ITwitchService.MessageReceivedHandler MessageReceived;
+
         private readonly ConfigurationService _configurationService;
 
         private readonly ISpeechSynthesizerService _speechSynthesizerService;
@@ -20,6 +25,8 @@ namespace RDPG_Twitch_TTS_Bot.Services
         private readonly ITwitchAPI _twitchApi;
 
         private readonly ITwitchPubSub _twitchPubSub;
+
+        private readonly ITwitchClient _twitchClient;
 
         private string _accessToken;
 
@@ -31,7 +38,8 @@ namespace RDPG_Twitch_TTS_Bot.Services
             ConfigurationService configurationService,
             ISpeechSynthesizerService speechSynthesizerService,
             ITwitchAPI api = null,
-            ITwitchPubSub pubSub = null
+            ITwitchPubSub pubSub = null,
+            ITwitchClient client = null
         )
         {
             if (string.IsNullOrWhiteSpace(clientId))
@@ -43,6 +51,8 @@ namespace RDPG_Twitch_TTS_Bot.Services
             _speechSynthesizerService = speechSynthesizerService;
             _twitchApi = api ?? new TwitchAPI();
             _twitchPubSub = pubSub ?? new TwitchPubSub();
+
+            _twitchClient = client ?? new TwitchClient();
 
             ClientId = clientId;
         }
@@ -57,13 +67,32 @@ namespace RDPG_Twitch_TTS_Bot.Services
                 SetUserInfo();
                 InitializePubSub();
                 BindPubSubEventHandlers();
+                BindClientEventHandlers();
                 Connect();
             }
+        }
+
+        private void BindClientEventHandlers()
+        {
+            _twitchClient.OnMessageReceived += (sender, args) =>
+            {
+                Logger.Debug($"New message: {args.ChatMessage}");
+
+                MessageReceived?.Invoke(args);
+            };
+
+            _twitchClient.OnJoinedChannel += (sender, args) =>
+            {
+                Logger.Debug($"Joined channel: {args.Channel}");
+            };
         }
 
         private void Connect()
         {
             _twitchPubSub.Connect();
+
+            _twitchClient.Initialize(new ConnectionCredentials(_configurationService.Username, _accessToken), _configurationService.Channel);
+            _twitchClient.Connect();
         }
 
         private void CheckAndSetToken(string value)
@@ -129,7 +158,12 @@ namespace RDPG_Twitch_TTS_Bot.Services
         public string GetOauthUrl()
         {
             return
-                $"https://id.twitch.tv/oauth2/authorize?client_id={ClientId}&redirect_uri={ConfigurationService.CallbackUrl}&response_type=token&scope=user:read:email+chat:read+user_read+channel_read";
+                $"https://id.twitch.tv/oauth2/authorize?client_id={ClientId}&redirect_uri={ConfigurationService.CallbackUrl}&response_type=token&scope=user:read:email+chat:read+chat:edit+user_read+channel_read";
+        }
+
+        public void SendMessage(string message, string channel = null)
+        {
+            _twitchClient.SendMessage(channel ?? _configurationService.Channel, message);
         }
     }
 }

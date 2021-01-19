@@ -3,6 +3,7 @@
   &lt;Assembly Path="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.dll" /&gt;&#xD;
   &lt;PhysicalFolder Path="C:\Users\cshar\.nuget\packages\eo.webbrowser.winform\20.2.90" Loaded="True" /&gt;&#xD;
   &lt;PhysicalFolder Path="C:\Users\cshar\.nuget\packages\eo.webbrowser\20.2.90" Loaded="True" /&gt;&#xD;
+  &lt;Assembly Path="C:\Users\cshar\.nuget\packages\system.runtime.loader\4.3.0\ref\netstandard1.5\System.Runtime.Loader.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String>
 	<s:String x:Key="/Default/Environment/Hierarchy/Build/BuildTool/CustomBuildToolPath/@EntryValue">C:\Program Files\JetBrains\JetBrains Rider 2020.2.4\tools\MSBuild\Current\Bin\MSBuild.exe</s:String>
 	

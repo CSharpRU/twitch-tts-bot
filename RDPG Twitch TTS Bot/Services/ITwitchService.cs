@@ -1,3 +1,4 @@
+using TwitchLib.Client.Events;
 using TwitchLib.PubSub.Events;
 
 namespace RDPG_Twitch_TTS_Bot.Services
@@ -7,6 +8,10 @@ namespace RDPG_Twitch_TTS_Bot.Services
         public event RedeemReceivedHandler RedeemReceived;
 
         public delegate void RedeemReceivedHandler(OnRewardRedeemedArgs message);
+
+        public event MessageReceivedHandler MessageReceived;
+
+        public delegate void MessageReceivedHandler(OnMessageReceivedArgs message);
 
         /// <summary>
         /// 
@@ -23,5 +28,7 @@ namespace RDPG_Twitch_TTS_Bot.Services
         /// </summary>
         /// <returns></returns>
         string GetOauthUrl();
+
+        void SendMessage(string message, string channel = null);
     }
 }

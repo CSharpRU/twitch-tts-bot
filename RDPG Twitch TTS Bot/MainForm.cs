@@ -19,6 +19,8 @@ namespace RDPG_Twitch_TTS_Bot
 
         private readonly ConfigurationService _configurationService;
 
+        private readonly Timer speakersCommandTimer = new Timer();
+
         public MainForm
         (
             AuthenticationController authenticationController,
@@ -53,6 +55,8 @@ namespace RDPG_Twitch_TTS_Bot
             authenticationController.CheckAuthentication();
 
             FillVoices();
+
+            speakersCommandTimer.Interval = _configurationService.SpeakersCommandTimeout;
         }
 
         private void FillVoices()
@@ -85,6 +89,19 @@ namespace RDPG_Twitch_TTS_Bot
                     () => ttsHistoryListBox.Items.Add($"New redeem ({args.RewardTitle}): {args.Login}: {args.Message}")
                 )
             );
+
+            // todo: move to command handlers classes
+            _twitchService.MessageReceived += args =>
+            {
+                if (!speakersCommandTimer.Enabled && args.ChatMessage.Message == _configurationService.SpeakersCommand)
+                {
+                    string message = $"Available speakers: {String.Join(" | ", _speechSynthesizerService.GetVoices().Select((voice) => voice.VoiceInfo.Name).ToArray())} (use name as [speaker name] before your TTS message, e.g. [speaker]My TTS message!)";
+
+                    _twitchService.SendMessage(message, args.ChatMessage.Channel);
+
+                    speakersCommandTimer.Start();
+                }
+            };
         }
 
         private void ShowAuthenticateForm()
@@ -142,7 +159,7 @@ namespace RDPG_Twitch_TTS_Bot
 
         private void voiceComboBox_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            var voice = ((KeyValuePair<string, string>) voiceComboBox.SelectedItem).Value;
+            var voice = ((KeyValuePair<string, string>)voiceComboBox.SelectedItem).Value;
 
             _speechSynthesizerService.Voice = _configurationService.Voice = voice;
         }

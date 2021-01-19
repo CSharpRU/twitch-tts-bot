@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using System.Speech.Synthesis;
+using System.Linq;
 
 namespace RDPG_Twitch_TTS_Bot.Services
 {
@@ -54,7 +55,31 @@ namespace RDPG_Twitch_TTS_Bot.Services
 
         public void Speak(string text)
         {
-            _synth.SpeakAsync(text);
+            var voiceStarted = false;
+            var promptBuilder = new PromptBuilder();
+
+            if (text.StartsWith("[") && text.IndexOf("]") is var indexOfLastBrace && indexOfLastBrace > 0)
+            {
+                var voiceName = text.Substring(1, indexOfLastBrace - 1);
+
+                text = text.Substring(indexOfLastBrace + 1);
+
+                if (GetVoices().Any(voice => voice.VoiceInfo.Name == voiceName))
+                {
+                    promptBuilder.StartVoice(voiceName);
+
+                    voiceStarted = true;
+                }
+            }
+
+            promptBuilder.AppendText(text);
+
+            if (voiceStarted)
+            {
+                promptBuilder.EndVoice();
+            }
+
+            _synth.SpeakAsync(promptBuilder);
         }
 
         public ReadOnlyCollection<InstalledVoice> GetVoices()

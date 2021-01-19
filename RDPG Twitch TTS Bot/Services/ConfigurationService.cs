@@ -14,6 +14,8 @@ namespace RDPG_Twitch_TTS_Bot.Services
         private const string OauthAccessTokenKey = "oauthAccessToken";
         private const string VoiceKey = "voice";
         private const string RewardNameKey = "rewardName";
+        private const string SpeakersCommandKey = "speakersCommand";
+        private const string SpeakersCommandTimeoutKey = "speakersCommandTimeout";
 
         private readonly Configuration _configuration;
 
@@ -54,6 +56,18 @@ namespace RDPG_Twitch_TTS_Bot.Services
         {
             get => _configuration.AppSettings.Settings[RewardNameKey]?.Value;
             set => Set(RewardNameKey, value);
+        }
+
+        public string SpeakersCommand
+        {
+            get => _configuration.AppSettings.Settings[SpeakersCommandKey]?.Value;
+            set => Set(SpeakersCommandKey, value);
+        }
+
+        public int SpeakersCommandTimeout
+        {
+            get => Int32.Parse(_configuration.AppSettings.Settings[SpeakersCommandTimeoutKey]?.Value ?? "60");
+            set => Set(SpeakersCommandTimeoutKey, value.ToString());
         }
 
         /// <summary>
