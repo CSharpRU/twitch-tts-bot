@@ -19,7 +19,7 @@ namespace RDPG_Twitch_TTS_Bot
 
         private readonly ConfigurationService _configurationService;
 
-        private readonly Timer speakersCommandTimer = new Timer();
+        private readonly System.Timers.Timer speakersCommandTimer = new System.Timers.Timer();
 
         public MainForm
         (
@@ -55,7 +55,12 @@ namespace RDPG_Twitch_TTS_Bot
             authenticationController.CheckAuthentication();
 
             FillVoices();
+            InitializeTimers();
+        }
 
+        private void InitializeTimers()
+        {
+            speakersCommandTimer.AutoReset = false;
             speakersCommandTimer.Interval = _configurationService.SpeakersCommandTimeout;
         }
 
