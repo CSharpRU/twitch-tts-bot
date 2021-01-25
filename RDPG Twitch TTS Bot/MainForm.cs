@@ -100,7 +100,7 @@ namespace RDPG_Twitch_TTS_Bot
             {
                 if (!speakersCommandTimer.Enabled && args.ChatMessage.Message == _configurationService.SpeakersCommand)
                 {
-                    string message = $"Available speakers: {String.Join(" | ", _speechSynthesizerService.GetVoices().Select((voice) => voice.VoiceInfo.Name).ToArray())} (use name as [speaker name] before your TTS message, e.g. [speaker]My TTS message!)";
+                    string message = $"Available speakers: {String.Join(" | ", _speechSynthesizerService.GetVoices().Select((voice) => voice.VoiceInfo.Name + $" ({voice.VoiceInfo.Culture.Name})").ToArray())} (use name as [speaker name] before your TTS message, e.g. [speaker]My TTS message!)";
 
                     _twitchService.SendMessage(message, args.ChatMessage.Channel);
 
