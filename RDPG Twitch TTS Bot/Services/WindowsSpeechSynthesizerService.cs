@@ -64,9 +64,9 @@ namespace RDPG_Twitch_TTS_Bot.Services
 
                 text = text.Substring(indexOfLastBrace + 1);
 
-                if (GetVoices().Any(voice => voice.VoiceInfo.Name == voiceName))
+                if (GetVoices().First(voice => voice.VoiceInfo.Name.ToLower().Contains(voiceName.ToLower())) is var voice && voice != null)
                 {
-                    promptBuilder.StartVoice(voiceName);
+                    promptBuilder.StartVoice(voice.VoiceInfo.Name);
 
                     voiceStarted = true;
                 }
